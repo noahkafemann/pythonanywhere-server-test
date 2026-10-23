@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notizen - GitHub Pages & PythonAnywhere</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Auth Views -->
+    <section class="view" id="auth-view">
+      <div class="card">
+        <div class="card-header">
+          <h1 id="auth-title">Willkommen</h1>
+          <p id="auth-subtitle">Melde dich an oder erstelle ein Konto.</p>
+        </div>
+        <form id="auth-form" novalidate>
+          <div class="form-group">
+            <label for="auth-email">E-Mail</label>
+            <input type="email" id="auth-email" name="email" required placeholder="name@example.de" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="auth-password">Passwort</label>
+            <input type="password" id="auth-password" name="password" required autocomplete="current-password">
+          </div>
+          <div class="form-error" id="auth-error" role="alert" aria-live="polite"></div>
+          <button type="submit" class="btn btn-primary" id="auth-submit">Anmelden</button>
+        </form>
+        <div class="auth-toggle">
+          <span id="auth-toggle-text">Noch kein Konto?</span>
+          <button type="button" class="btn btn-link" id="auth-switch">Konto erstellen</button>
+        </div>
+        <div class="auth-actions">
+          <button type="button" class="btn btn-outline" id="back-to-dashboard">Zurück zum Dashboard</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard View -->
+    <section class="view" id="dashboard-view" hidden>
+      <header class="dashboard-header">
+        <div class="dashboard-brand">Notizen</div>
+        <div class="dashboard-user" id="dashboard-user"></div>
+        <button type="button" class="btn btn-outline" id="logout-btn">Abmelden</button>
+      </header>
+
+      <div class="dashboard-grid">
+        <aside class="dashboard-sidebar">
+          <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-view="notes">Notizen</a>
+          </nav>
+        </aside>
+
+        <main class="dashboard-main">
+          <h2>Meine Notizen</h2>
+          <div class="notes-toolbar">
+            <button type="button" class="btn btn-primary" id="new-note-btn">+ Neue Notiz</button>
+          </div>
+
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label for="note-content" class="sr-only">Notizinhalt</label>
+            <textarea id="note-content" name="content" rows="3" placeholder="Schreibe deine Notiz hier..." maxlength="1000"></textarea>
+            <div class="form-error" id="note-error" role="alert" aria-live="polite"></div>
+          </div>
+
+          <div class="loading" id="loading" hidden>
+            <div class="spinner"></div>
+            <span>Lade...</span>
+          </div>
+
+          <div class="empty-state" id="empty-state" hidden>
+            <p>Du hast noch keine Notizen.</p>
+          </div>
+
+          <ul class="notes-list" id="notes-list"></ul>
+        </main>
+      </div>
+    </section>
+
+    <!-- Global error toast -->
+    <div class="toast" id="toast" role="alert" aria-live="polite" hidden></div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

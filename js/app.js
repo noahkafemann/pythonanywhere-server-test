@@ -188,8 +188,9 @@ async function loadNotes() {
   setFormError(noteError, '');
 
   try {
-    const notes = await apiRequest('/api/notes');
-    renderNotes(notes || []);
+    const response = await apiRequest('/api/notes');
+    const notes = response && response.notes ? response.notes : [];
+    renderNotes(notes);
   } catch (err) {
     showToast(err.message || 'Notizen konnten nicht geladen werden.');
   } finally {
@@ -249,6 +250,7 @@ async function createNote() {
       method: 'POST',
       body: JSON.stringify({ content }),
     });
+    const created = response && response.note ? response.note : response;
     noteContent.value = '';
     await loadNotes();
     showToast('Notiz gespeichert.', 'success');

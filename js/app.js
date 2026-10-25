@@ -189,7 +189,7 @@ async function loadNotes() {
 
   try {
     const response = await apiRequest('/api/notes');
-    const notes = response && response.notes ? response.notes : [];
+    const notes = response && Array.isArray(response.notes) ? response.notes : [];
     renderNotes(notes);
   } catch (err) {
     showToast(err.message || 'Notizen konnten nicht geladen werden.');
@@ -246,11 +246,10 @@ async function createNote() {
   setLoading(newNoteBtn, true);
 
   try {
-    await apiRequest('/api/notes', {
+    const response = await apiRequest('/api/notes', {
       method: 'POST',
       body: JSON.stringify({ content }),
     });
-    const created = response && response.note ? response.note : response;
     noteContent.value = '';
     await loadNotes();
     showToast('Notiz gespeichert.', 'success');
